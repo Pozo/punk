@@ -16,6 +16,24 @@ java -jar target/punk-1.0-SNAPSHOT.jar -e \
 
 ```
 
+## Example
+
+Let's inject the latest zipped jQuery into a PNG file.
+```
+wget -O $HOME/spaceinvaders.png http://www.adiumxtras.com/images/thumbs/space_invaders_1_17601_6150_thumb.png
+wget -O $HOME/jquery.zip https://github.com/jquery/jquery/archive/master.zip
+
+java -jar target/punk-1.0-SNAPSHOT.jar -e \
+-s $HOME/spaceinvaders.png \
+-i $HOME/jquery.zip \
+-o invader.png
+
+#sudo apt-get install pngtools
+pngchunks invader.png 
+7z l invader.png
+
+$$ profit $$
+```
 ## Licensing
 
 Please see the file called LICENSE.
