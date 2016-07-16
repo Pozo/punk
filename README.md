@@ -2,7 +2,7 @@
 
 ## What is it?
 
-Hiding a payload in PNG files with ~~Python~~ Java, according to Brian de Heus [article](http://blog.brian.jp/python/png/2016/07/07/file-fun-with-pyhon.html)
+Hiding a payload in PNG files with ~~Python~~ Java, according to Brian de Heus [article](http://blog.brian.jp/python/png/2016/07/07/file-fun-with-pyhon.html) and the [reddit](https://www.reddit.com/r/programming/comments/4rt266/hiding_a_payload_in_png_files_with_python/) link which led me there.
 
 ## Usage
 
