@@ -1,12 +1,13 @@
 package com.github.pozo.punk;
 
-import com.github.pozo.punk.png.*;
+import com.github.pozo.punk.png.PNGChunk;
+import com.github.pozo.punk.png.PNGChunkList;
+import com.github.pozo.punk.png.PNGReader;
+import com.github.pozo.punk.png.PNGWriter;
 
-import java.io.*;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.CRC32;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Created by pozo on 2016.07.14..
@@ -31,6 +32,7 @@ public class Punk {
         PNGWriter pngWriter = new PNGWriter(target);
         pngWriter.writeFully(bytes);
     }
+
     public void decode(InputStream source, OutputStream target) throws IOException {
 
     }
