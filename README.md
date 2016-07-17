@@ -17,7 +17,7 @@ java -jar target/punk-1.0-SNAPSHOT.jar -e \
 ```
 
 ## Example
-
+####encode
 Let's inject the latest zipped jQuery into a PNG file.
 ```
 wget -O $HOME/spaceinvaders.png http://www.adiumxtras.com/images/thumbs/space_invaders_1_17601_6150_thumb.png
@@ -34,6 +34,16 @@ pngchunks invader.png
 
 $$ profit $$
 ```
+####decode
+Let's recover jQuery from that little bastard.
+```
+java -jar target/punk-1.0-SNAPSHOT.jar -d \
+-i invader.png \
+-o jquery
+```
+## Banana for scale
+
+![alt text](http://cdn0.dailydot.com/cache/f9/50/f950e4c4ffb624d260ec08f30d7266bd.jpg "Logo Title Text 1")
 ## Licensing
 
 Please see the file called LICENSE.
