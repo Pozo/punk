@@ -36,36 +36,14 @@ public class App {
         try {
             cmd = parser.parse(options, args);
 
-            if (((cmd.hasOption(E) || cmd.hasOption(D)) && cmd.hasOption(S) && cmd.hasOption(I))) {
+            if (cmd.hasOption(E) || cmd.hasOption(D)) {
                 Punk punk = new Punk();
 
-                if(cmd.hasOption(E)) {
-                    String rawTargetFile = cmd.getOptionValue(I);
-                    String rawOutputPng = cmd.getOptionValue(O);
-                    String rawPngFile = cmd.getOptionValue(S);
+                if(cmd.hasOption(E) && cmd.hasOption(I) && cmd.hasOption(S) && cmd.hasOption(O)) {
+                    encode(cmd, punk);
 
-                    final File targetFile = new File(rawTargetFile);
-                    final File outputFile = new File(rawOutputPng);
-                    final File pngFile = new File(rawPngFile);
-
-                    if(!pngFile.isFile()) {
-                        throw new ParseException("'s, source-file' must be an existing file");
-                    }
-
-                    File absoluteFile = outputFile.getAbsoluteFile();
-                    if(!absoluteFile.getParentFile().isDirectory()) {
-                        throw new ParseException("'o, output-png' parent must be an existing directory");
-                    }
-                    if(!targetFile.isFile()) {
-                        throw new ParseException("'i, input-png' must be an existing file");
-                    }
-
-                    FileInputStream fileInputStreamPng = new FileInputStream(pngFile);
-                    FileInputStream fileInputStreamTarget = new FileInputStream(targetFile);
-                    FileOutputStream fileOutputStream = new FileOutputStream(outputFile);
-
-                    punk.encode(fileInputStreamTarget,fileInputStreamPng, fileOutputStream);
-                } else if(cmd.hasOption(D)) {
+                } else if(cmd.hasOption(D) && cmd.hasOption(I) && cmd.hasOption(O)) {
+                    decode(cmd, punk);
 
                 } else {
                     formatter.printHelp(APP_NAME, options );
@@ -80,5 +58,53 @@ public class App {
             System.out.println();
             formatter.printHelp(APP_NAME, options );
         }
+    }
+
+    private static void decode(CommandLine cmd, Punk punk) throws ParseException, IOException {
+        String rawTargetFile = cmd.getOptionValue(I);
+        String rawOutputPng = cmd.getOptionValue(O);
+
+        final File targetFile = new File(rawTargetFile);
+        final File outputFile = new File(rawOutputPng);
+
+        if(!targetFile.isFile()) {
+            throw new ParseException("'i, input-png' must be an existing file");
+        }
+        File absoluteFile = outputFile.getAbsoluteFile();
+        if(!absoluteFile.getParentFile().isDirectory()) {
+            throw new ParseException("'o, output-png' parent must be an existing directory");
+        }
+
+        FileInputStream fileInputStreamTarget = new FileInputStream(targetFile);
+        FileOutputStream fileOutputStream = new FileOutputStream(outputFile);
+
+        punk.decode(fileInputStreamTarget, fileOutputStream);
+    }
+
+    private static void encode(CommandLine cmd, Punk punk) throws ParseException, IOException {
+        String rawTargetFile = cmd.getOptionValue(I);
+        String rawOutputPng = cmd.getOptionValue(O);
+        String rawPngFile = cmd.getOptionValue(S);
+
+        final File targetFile = new File(rawTargetFile);
+        final File outputFile = new File(rawOutputPng);
+        final File pngFile = new File(rawPngFile);
+
+        if(!pngFile.isFile()) {
+            throw new ParseException("'s, source-file' must be an existing file");
+        }
+        File absoluteFile = outputFile.getAbsoluteFile();
+        if(!absoluteFile.getParentFile().isDirectory()) {
+            throw new ParseException("'o, output-png' parent must be an existing directory");
+        }
+        if(!targetFile.isFile()) {
+            throw new ParseException("'i, input-png' must be an existing file");
+        }
+
+        FileInputStream fileInputStreamPng = new FileInputStream(pngFile);
+        FileInputStream fileInputStreamTarget = new FileInputStream(targetFile);
+        FileOutputStream fileOutputStream = new FileOutputStream(outputFile);
+
+        punk.encode(fileInputStreamTarget,fileInputStreamPng, fileOutputStream);
     }
 }
