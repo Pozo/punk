@@ -52,9 +52,9 @@ public class App {
             } else {
                 formatter.printHelp(APP_NAME, options );
             }
-        } catch (ParseException e) {
-            System.err.println(e.getMessage());
+        } catch (Exception e) {
             System.out.println();
+            System.err.println(e.getMessage());
             System.out.println();
             formatter.printHelp(APP_NAME, options );
         }
